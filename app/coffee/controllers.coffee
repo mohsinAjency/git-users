@@ -6,8 +6,9 @@ app_name = "myApp"
 app = angular.module "#{app_name}.controllers",
  ['ngMaterial','angular-underscore']
 
-app.controller 'myCtrl1', ['$scope','$rootScope','$http','$location',
- ($scope,$rootScope,$http,$location) ->
+app.controller 'myCtrl1', [
+  '$scope','$rootScope','$http','$location','appService',
+ ($scope,$rootScope,$http,$location,appService) ->
     $scope.name = "view 1"
     $scope.items = ['Item 1', 'Item 2', 'Item 3']
 
@@ -35,15 +36,17 @@ app.controller 'myCtrl1', ['$scope','$rootScope','$http','$location',
     console.log $scope._ [1, 2, 3]
     $scope.go = (path,user) ->
       $rootScope.USER = user
+      appService.setCurrentUser user
       $location.path( path )
   ]
 
-app.controller 'myCtrl2', ['$scope','$rootScope','$http',
- ($scope,$rootScope,$http) ->
+app.controller 'myCtrl2', ['$scope','$rootScope','$http','appService',
+ ($scope,$rootScope,$http,appService) ->
     $scope.user = $rootScope.USER
+    console.log "dsdssd", appService.currentUser
     res = $http.get $rootScope.USER.url
     res.then (result)->
-      console.log result.data
+      console.log result.data , "result"
       $scope.user = result.data
     ,(error) ->
       console.log "error", error

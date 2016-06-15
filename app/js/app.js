@@ -10,6 +10,21 @@
 
   app = angular.module(app_name + ".services", []);
 
+  app.service("appService", function() {
+    var getCurrentUser, setCurrentUserData;
+    this.currentUserData = {};
+    setCurrentUserData = function(user) {
+      return this.currentUserData = user;
+    };
+    getCurrentUser = function() {
+      return currentUser;
+    };
+    return {
+      currentUser: this.currentUserData,
+      setCurrentUser: setCurrentUserData
+    };
+  });
+
   app.value('version', '0.1');
 
   'use strict';
@@ -81,12 +96,13 @@
   app = angular.module(app_name + ".controllers", ['ngMaterial', 'angular-underscore']);
 
   app.controller('myCtrl1', [
-    '$scope', '$rootScope', '$http', '$location', function($scope, $rootScope, $http, $location) {
+    '$scope', '$rootScope', '$http', '$location', 'appService', function($scope, $rootScope, $http, $location, appService) {
       var awardMedals, gold, numbers, res, rest, silver, vm;
       $scope.name = "view 1";
       $scope.items = ['Item 1', 'Item 2', 'Item 3'];
       gold = silver = rest = "unknown";
       vm = this;
+      $scope.temp = "git commit test";
       awardMedals = function() {
         var first, others, second;
         first = arguments[0], second = arguments[1], others = 3 <= arguments.length ? slice.call(arguments, 2) : [];
@@ -123,18 +139,20 @@
       console.log($scope._([1, 2, 3]));
       return $scope.go = function(path, user) {
         $rootScope.USER = user;
+        appService.setCurrentUser(user);
         return $location.path(path);
       };
     }
   ]);
 
   app.controller('myCtrl2', [
-    '$scope', '$rootScope', '$http', function($scope, $rootScope, $http) {
+    '$scope', '$rootScope', '$http', 'appService', function($scope, $rootScope, $http, appService) {
       var res;
       $scope.user = $rootScope.USER;
+      console.log("dsdssd", appService.currentUser);
       res = $http.get($rootScope.USER.url);
       return res.then(function(result) {
-        console.log(result.data);
+        console.log(result.data, "result");
         return $scope.user = result.data;
       }, function(error) {
         return console.log("error", error);
