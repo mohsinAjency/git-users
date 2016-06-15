@@ -13,6 +13,7 @@ app.controller 'myCtrl1', ['$scope','$rootScope','$http','$location',
 
     gold = silver = rest = "unknown"
     vm = this
+    $scope.temp = "git commit test"
     # this is for testing purposes
     awardMedals = (first, second, others...) ->
         gold   = first
