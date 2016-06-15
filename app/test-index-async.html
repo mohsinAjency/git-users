@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <style>
+    [ng-cloak] {
+      display: none;
+    }
+  </style>
+  <script>
+    // include angular loader, which allows the files to load in any order
+    /*
+     AngularJS v1.0.5
+     (c) 2010-2012 Google, Inc. http://angularjs.org
+     License: MIT
+    */
+    (function(i){'use strict';function d(c,b,e){return c[b]||(c[b]=e())}return d(d(i,"angular",Object),"module",function(){var c={};return function(b,e,f){e&&c.hasOwnProperty(b)&&(c[b]=null);return d(c,b,function(){function a(a,b,d){return function(){c[d||"push"]([a,b,arguments]);return g}}if(!e)throw Error("No module: "+b);var c=[],d=[],h=a("$injector","invoke"),g={_invokeQueue:c,_runBlocks:d,requires:e,name:b,provider:a("$provide","provider"),factory:a("$provide","factory"),service:a("$provide","service"),
+    value:a("$provide","value"),constant:a("$provide","constant","unshift"),filter:a("$filterProvider","register"),controller:a("$controllerProvider","register"),directive:a("$compileProvider","directive"),config:h,run:function(a){d.push(a);return this}};f&&h(f);return g})}})})(window);
+
+
+    // include a third-party async loader library
+    /*!
+     * $script.js Async loader & dependency manager
+     * https://github.com/ded/script.js
+     * (c) Dustin Diaz, Jacob Thornton 2011
+     * License: MIT
+    */
+    (function(a,b,c){typeof c["module"]!="undefined"&&c.module.exports?c.module.exports=b():typeof c["define"]!="undefined"&&c["define"]=="function"&&c.define.amd?define(a,b):c[a]=b()})("$script",function(){function p(a,b){for(var c=0,d=a.length;c<d;++c)if(!b(a[c]))return j;return 1}function q(a,b){p(a,function(a){return!b(a)})}function r(a,b,i){function o(a){return a.call?a():d[a]}function t(){if(!--n){d[m]=1,l&&l();for(var a in f)p(a.split("|"),o)&&!q(f[a],o)&&(f[a]=[])}}a=a[k]?a:[a];var j=b&&b.call,l=j?b:i,m=j?a.join(""):b,n=a.length;return setTimeout(function(){q(a,function(a){if(h[a])return m&&(e[m]=1),h[a]==2&&t();h[a]=1,m&&(e[m]=1),s(!c.test(a)&&g?g+a+".js":a,t)})},0),r}function s(c,d){var e=a.createElement("script"),f=j;e.onload=e.onerror=e[o]=function(){if(e[m]&&!/^c|loade/.test(e[m])||f)return;e.onload=e[o]=null,f=1,h[c]=2,d()},e.async=1,e.src=c,b.insertBefore(e,b.firstChild)}var a=document,b=a.getElementsByTagName("head")[0],c=/^https?:\/\//,d={},e={},f={},g,h={},i="string",j=!1,k="push",l="DOMContentLoaded",m="readyState",n="addEventListener",o="onreadystatechange";return!a[m]&&a[n]&&(a[n](l,function t(){a.removeEventListener(l,t,j),a[m]="complete"},j),a[m]="loading"),r.get=s,r.order=function(a,b,c){(function d(e){e=a.shift(),a.length?r(e,d):r(e,b,c)})()},r.path=function(a){g=a},r.ready=function(a,b,c){a=a[k]?a:[a];var e=[];return!q(a,function(a){d[a]||e[k](a)})&&p(a,function(a){return d[a]})?b():!function(a){f[a]=f[a]||[],f[a][k](b),c&&c(e)}(a.join("|")),r},r},this)
+
+    // load all of the dependencies asynchronously.
+    $script([
+      'lib/angular/angular.js',
+      'lib/coffeescript/coffeescript.min.js'
+    ], function() {
+      // when all is done, compile coffeescript and execute bootstrap angular application
+      for(var i=0, coffee=[
+        'coffee/services.coffee',
+        'coffee/controllers.coffee',
+        'coffee/filters.coffee',
+        'coffee/directives.coffee'
+      ], len=coffee.length, loaded=0; i < len; i++) {
+        CoffeeScript.load(coffee[i], (function(i){return function(){
+          loaded++;
+          if (loaded == len) {
+            // all resource scripts have been converted, compile and execute bootstrap angular application
+            CoffeeScript.load('coffee/app.coffee');
+          }
+        }})(i));
+      }
+    });
+  </script>
+  <title>My AngularJS App</title>
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body ng-cloak>
+  <ul class="menu">
+    <li><a href="#/view1">view1</a></li>
+    <li><a href="#/view2">view2</a></li>
+  </ul>
+
+  <div ng-view></div>
+
+  <div>Angular seed app: v<span app-version></span></div>
+
+</body>
+</html>

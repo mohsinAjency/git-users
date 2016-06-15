@@ -1,0 +1,26 @@
+<div layout layout-wrap layout-align="center center">
+    <md-card ng-repeat="item in data" flex="20" ng-click="go('/view2/'+item.id,item)" >
+        <md-card-header>
+          <md-card-avatar>
+            <img ng-src="{{item.avatar_url}}"/>
+          </md-card-avatar>
+          <md-card-header-text>
+            <span class="md-title">{{item.login | uppercase}}</span>
+            <span class="md-subhead">GitHub</span>
+          </md-card-header-text>
+        </md-card-header>
+        <img ng-src="{{item.avatar_url}}"" class="md-card-image" alt="Washed Out">
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">Card header</span>
+          </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+          <p>
+            The titles of Washed Out's breakthrough song and the first single from Paracosm share the
+            two most important words in Ernest Greene's musical language: feel it. It's a simple request, as well...
+          </p>
+        </md-card-content>
+      </md-card>
+</div>
+ 

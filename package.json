@@ -1,0 +1,33 @@
+{
+  "name": "git-users",
+  "version": "0.0.1",
+  "description": "Simple project showing git users and their info",
+  "main": "app/index.html",
+  "dependencies": {
+    "uglify-js": ">=2.x",
+    "underscore": "1.8.3",
+    "angular-underscore": "0.0.3",
+    "angular-material": "1.0.9"
+  },
+  "devDependencies": {},
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "scripts/test.sh",
+     "start": "http-server -a localhost -p 8000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mohsinAjency/git-users.git"
+  },
+  "keywords": [
+    "angular",
+    "angular.js",
+    "coffeescript",
+    "coffee-script"
+  ],
+  "author": "Mohsin Muzawar",
+  "license": "MIT",
+  "readmeFilename": "README.md"
+}
